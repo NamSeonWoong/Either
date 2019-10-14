@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block body %}
+  <p>{{question.title}}</p>
+  <form action="{% url 'pages:answer_create' question.id %}" method="post">
+    {% csrf_token %}
+    
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input type="radio" aria-label="Checkbox for following text input" name="pick" value=1>
+              </div>
+            </div>
+            <p><input type="text" class="form-control" aria-label="Text input with checkbox" value="{{question.question1}}"></p>
+            <p>{{choice1}}</p>
+            <p class="my-3">{{c1}}%</p>
+          </div>
+        </div>
+      
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                
+                <input type="radio" aria-label="Checkbox for following text input" name="pick" value=2>
+              </div>
+            </div>
+            <p><input type="text" class="form-control" aria-label="Text input with checkbox" value="{{question.question2}}"></p>
+            <p>{{choice2}}</p>
+            <p class="my-3">{{c2}}%</p>
+              
+        </div>
+          <input type="text" class="form-contrl" name='content'>
+          <input type="submit">
+        
+      </div>
+    </div>
+  </form>
+
+  
+
+  
+
+  <a class="btn btn-success" href ="{% url 'pages:index' %}">목록보기</a>
+  <a class="btn btn-primary" href ="{% url 'pages:update' question.id %}">수정하기</a>
+  <a class="btn btn-danger" href ="{% url 'pages:delete' question.id %}">삭제하기</a>
+  
+  {% if question.choice_set.all  %}
+    {% for answer in question.choice_set.all %}
+      <div class="my-3">{{ answer.content }}<a class="btn btn-danger" href ="{% url 'pages:choice_delete' question.id answer.id %}">삭제하기</a></div> 
+    {% endfor %}
+
+  {% else %}
+    <p>댓글이 없습니다</p>  
+  {% endif %}
+
+</form>
+  
+  
+{% endblock %}

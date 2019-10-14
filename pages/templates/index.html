@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block body %}
+  {% for question in questions %}
+    <a href="{% url 'pages:detail' question.id %}">{{question.title}}</a>
+  {% endfor %}
+{% endblock %}
